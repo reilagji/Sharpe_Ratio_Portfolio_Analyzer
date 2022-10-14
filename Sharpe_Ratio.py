@@ -45,7 +45,9 @@ if len(tickers) > 0:
     st.line_chart(changes)
     st.dataframe(changes.describe().transpose())
 
-else: st.text("Enter ticker(s) in the sidebar to see relative returns and daily percent change. \nEnter 2 or more tickers to see asset price correlations and optimal $ allocation\nper company.")
+else: 
+    st.text("Enter ticker(s) in the sidebar to see relative returns and daily percent change. \nEnter 2 or more tickers to see asset price correlations and optimal $ allocation\nper company.")
+    st.text("This app utilizes up to 20,000 simulations of various stock allocations split among\nThe stock tickers you select, and attemps to maximize returns while minizimg risk\nvia the Sharpe Ratio")
 
 
 if any("," in ele for ele in tickers) >0:
@@ -60,10 +62,11 @@ else: st.text(" ")
 
 #SHARPE RATIO CALCULATOR
 
-st.header("Optimal Risk-Adjusted Portfolio Allocation Via the Sharpe Ratio")
-st.text("This app utilizes up to 20,000 simulations of various stock allocations split among\nThe stock tickers you select, and attemps to maximize returns while minizimg risk\nvia the Sharpe Ratio")
+
 
 if len(tickers) >0:
+    
+    st.header("Optimal Risk-Adjusted Portfolio Allocation Via the Sharpe Ratio")
 
     data = yf.download(tickers,start_date,end_date)
     x = data['Close'].pct_change()
