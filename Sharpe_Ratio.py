@@ -45,7 +45,7 @@ if len(tickers) > 0:
     st.line_chart(changes)
     st.dataframe(changes.describe().transpose())
 
-else: st.text("Enter ticker(s) in the sidebar to see relative returns and daily percent change. \nEnter 2 or more tickers to see asset price correlations and optimal $ allocation\n per company.")
+else: st.text("Enter ticker(s) in the sidebar to see relative returns and daily percent change. \nEnter 2 or more tickers to see asset price correlations and optimal $ allocation\nper company.")
 
 
 if any("," in ele for ele in tickers) >0:
@@ -60,8 +60,8 @@ else: st.text(" ")
 
 #SHARPE RATIO CALCULATOR
 
-st.header("Optimal Risk-Adjusted Portfolio weightings")
-
+st.header("Optimal Risk-Adjusted Portfolio Allocation Via the Sharpe Ratio")
+st.text("This app utilizes up to 20,000 simulations of various stock allocations split among a desired portfolio, and then attemps to maximize returns while minizimg risk via the Sharpe Ratio"
 if len(tickers) >0:
 
     data = yf.download(tickers,start_date,end_date)
@@ -100,5 +100,6 @@ if len(tickers) >0:
     s = pd.Series(p_weights[max_ind]*folio_value, index=x.columns)
     st.bar_chart(s)
 else: 
-    st.text("A simple introduction to the Sharpe Ratio below.\nSuppose each of these two investments both returned 40% over the time period.\nWhich was a better investment? Black is much more painful to hold, but ultimately\nreturned the same amount. Sometimes it beat green but other times it severely\nunderperformed.This volatility makes it more painful to hold black than green.\nTherefore, in order to evaluate each investment we employ the Sharpe Ratio, which\ncalculates return divivded by volatility experienced.\n\nThe S&Ps 20-yr Sharpe Ratio is approx. 0.45. Therefore, when building a portfolio of\nindividual stocks we want to aim for a Sharpe Ratio > 0.45 within our portfolio.\nThis helps us account for the excess risk we bear by picking individual stocks")
+    st.header("A simple introduction to the Sharpe Ratio:")
+    st.text("Suppose each of these two investments both returned 40% over the time period.\nWhich was a better investment? Black is much more painful to hold, but ultimately\nreturned the same amount. Sometimes it beat green but other times it severely\nunderperformed.This volatility makes it more painful to hold black than green.\nTherefore, in order to evaluate each investment we employ the Sharpe Ratio, which\ncalculates return divivded by volatility experienced.\n\nThe S&Ps 20-yr Sharpe Ratio is approx. 0.45. Therefore, when building a portfolio of\nindividual stocks we want to aim for a Sharpe Ratio > 0.45 within our portfolio.\nThis helps us account for the excess risk we bear by picking individual stocks")
     st.image("https://preview.redd.it/wr7lxlxy8ek71.png?width=724&format=png&auto=webp&s=1e8c8b137234d3a358e1629926fa1712be2c12c8")
