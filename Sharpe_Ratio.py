@@ -45,7 +45,7 @@ if len(tickers) > 0:
     st.line_chart(changes)
     st.dataframe(changes.describe().transpose())
 
-else: st.text("Enter ticker(s) in the sidebar to see relative returns and daily percent change. \nEnter 2 or more tickers to see asset price correlations.")
+else: st.text("Enter ticker(s) in the sidebar to see relative returns and daily percent change. \nEnter 2 or more tickers to see asset price correlations and optimal $ allocation per company.")
 
 
 if any("," in ele for ele in tickers) >0:
@@ -62,38 +62,41 @@ else: st.text(" ")
 
 st.header("Optimal Risk-Adjusted Portfolio weightings")
 
-data = yf.download(tickers,start_date,end_date)
-x = data['Close'].pct_change()
+if len(tickers) >0:
 
-p_weights = []
-p_returns = []
-p_risk = []
-p_sharpe = []
+    data = yf.download(tickers,start_date,end_date)
+    x = data['Close'].pct_change()
 
-count = int(sims)
-for k in range(0, count):
-    wts = np.random.uniform(size = len(x.columns))
-    wts = wts/np.sum(wts)
-    p_weights.append(wts)
+    p_weights = []
+    p_returns = []
+    p_risk = []
+    p_sharpe = []
 
-
-    mean_ret = (x.mean() * wts).sum()*252
-    p_returns.append(mean_ret)
+    count = int(sims)
+    for k in range(0, count):
+        wts = np.random.uniform(size = len(x.columns))
+        wts = wts/np.sum(wts)
+        p_weights.append(wts)
 
 
-    ret = (x * wts).sum(axis = 1)
-    annual_std = np.std(ret) * np.sqrt(252)
-    p_risk.append(annual_std)
-
-    sharpe = (np.mean(ret) / np.std(ret))*np.sqrt(252)
-    p_sharpe.append(sharpe)
+        mean_ret = (x.mean() * wts).sum()*252
+        p_returns.append(mean_ret)
 
 
-max_ind = np.argmax(p_sharpe)
+        ret = (x * wts).sum(axis = 1)
+        annual_std = np.std(ret) * np.sqrt(252)
+        p_risk.append(annual_std)
 
-st.text("The Sharpe Ratio for this portfolio is: {}" .format(round(p_sharpe[max_ind],2)))
+        sharpe = (np.mean(ret) / np.std(ret))*np.sqrt(252)
+        p_sharpe.append(sharpe)
 
-st.text("The optimal portfolio allocation per company is: \n{}" .format(np.round(p_weights[max_ind]*folio_value,1)))
 
-s = pd.Series(p_weights[max_ind]*folio_value, index=x.columns)
-st.bar_chart(s)
+    max_ind = np.argmax(p_sharpe)
+
+    st.text("The Sharpe Ratio for this portfolio is: {}" .format(round(p_sharpe[max_ind],2)))
+
+    st.text("The optimal portfolio allocation per company is: \n{}" .format(np.round(p_weights[max_ind]*folio_value,1)))
+
+    s = pd.Series(p_weights[max_ind]*folio_value, index=x.columns)
+    st.bar_chart(s)
+else: st.text(" ")
