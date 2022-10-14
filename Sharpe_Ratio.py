@@ -61,7 +61,7 @@ else: st.text(" ")
 #SHARPE RATIO CALCULATOR
 
 st.header("Optimal Risk-Adjusted Portfolio Allocation Via the Sharpe Ratio")
-st.text("This app utilizes up to 20,000 simulations of various stock allocations split among a desired portfolio, and then attemps to maximize returns while minizimg risk via the Sharpe Ratio")
+st.text("This app utilizes up to 20,000 simulations of various stock allocations split among\nThe stock tickers you select, and attemps to maximize returns while minizimg risk via the Sharpe Ratio")
 
 if len(tickers) >0:
 
