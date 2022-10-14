@@ -4,7 +4,6 @@ import pandas as pd
 import plotly.express as px
 import seaborn as sns
 import matplotlib.pyplot as plt
-import statsmodels.api as sm
 from collections import Counter
 import re
 import numpy as np
