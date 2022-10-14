@@ -45,7 +45,7 @@ if len(tickers) > 0:
     st.line_chart(changes)
     st.dataframe(changes.describe().transpose())
 
-else: st.text("Enter ticker(s) in the sidebar to see relative returns and daily percent change. \nEnter 2 or more tickers to see asset price correlations and optimal $ allocation per company.")
+else: st.text("Enter ticker(s) in the sidebar to see relative returns and daily percent change. \nEnter 2 or more tickers to see asset price correlations and optimal $ allocation\n per company.")
 
 
 if any("," in ele for ele in tickers) >0:
@@ -99,4 +99,5 @@ if len(tickers) >0:
 
     s = pd.Series(p_weights[max_ind]*folio_value, index=x.columns)
     st.bar_chart(s)
-else: st.text(" ")
+else: st.text("A simple introduction to the Sharpe Ratio below: \n Suppose each of these two invesments both returned 40% over the time period.\n
+ So which was a better investment? Black is much more painful to hold, despite ultimately returning the same % increase.\n Sometimes it beat green but other times it severely underperformed.\n This volatility makes it more painful to hold black than green.\n Therefore, in order to evaluate each investment we employ the Sharpe Ratio, which calculates return divivded by volatility experienced.\n The trailing 20-yr sharpe ratio of S&P is roughly 0.45. Therfore, when building a portfolio of stocks we want to aim for a Sharpe Ratio > 0.45 within our portfolio.")
