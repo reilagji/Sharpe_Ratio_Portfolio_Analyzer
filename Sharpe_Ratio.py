@@ -9,7 +9,7 @@ import re
 import numpy as np
 pd.set_option('display.float_format','{:.0f}'.format)
 
-st.title("Risk-Adjusted Porfolio Analyzer")
+st.title("Risk-Adjusted Porfolio Analyzer 🐂")
 
 
 
